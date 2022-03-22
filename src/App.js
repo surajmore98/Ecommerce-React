@@ -16,8 +16,6 @@ function App() {
           <Route path="/logout" element={<Logout/>} />
           <Route path="/mock" element={<Mock/>} /> 
       </Routes>
-      {/* <ScriptTag type="text/javascript" 
-      src="http://127.0.0.1:5500/src/js/index.js" /> */}
     </div>
   );
 }
