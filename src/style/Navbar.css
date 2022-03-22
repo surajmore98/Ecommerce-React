@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+/* @import url("https://charcoal-ui.netlify.app/src/style/style.css"); */
+
+.nav-search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-search-input {
+    padding: 0.25rem;
+    padding-left: 2rem;
+    width: 100%;
+    outline: none;
+    border-style: solid;
+    color: var(--charcoal-black);
+    border-color: var(--charcoal-gray);
+    border-radius: 0.25rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0;
+    padding: 0.25rem;
+    padding-top: 0.375rem;
+}
