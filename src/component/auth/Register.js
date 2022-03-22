@@ -7,6 +7,11 @@ function Register() {
     const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();
     const { email, password, firstName, lastName } = credential;
 
+    //to reset error value for new register.
+    useEffect(() => {
+        setError(false);
+    }, [credential])
+
     function inputChangeHandler(e, type) {
         const value  = e.target.value;
         if(value) {

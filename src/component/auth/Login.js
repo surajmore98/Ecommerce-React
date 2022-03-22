@@ -9,6 +9,11 @@ function Login() {
     const { email, password } = credential;
     const [isRemeberMe, setRemeberMe] = useState();
 
+    //to reset error value for new login.
+    useEffect(() => {
+        setError(false);
+    }, [credential])
+
     function inputChangeHandler(e, type) {
         const value  = e.target.value;
         if(value) {
@@ -64,7 +69,7 @@ function Login() {
                         <div className="form-field-section">
                             <div className="form-field form-field-horizontal font-md">
                                 <label className="form-control-horizontal">
-                                    <input type="checkbox" value={isRemeberMe} onclick={checkboxChangedHandler}/>
+                                    <input type="checkbox" value={isRemeberMe} onClick={checkboxChangedHandler}/>
                                     <span className="input-label">Remember me</span>
                                 </label>
                                 <a className="link info p-sm">Forgot your Password?</a>
