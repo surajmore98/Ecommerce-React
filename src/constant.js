@@ -2,7 +2,7 @@ export const sortByPrice = "PRICE";
 export const highToLow = "HIGH_TO_LOW";
 export const lowToHigh = "LOW_TO_HIGH";
 
-export const filterByGender = "FILTER_BY_GNEDER";
+export const filterByGender = "FILTER_BY_GENDER";
 export const men = "MEN";
 export const women = "WOMEN";
 
