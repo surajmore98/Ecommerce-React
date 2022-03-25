@@ -5,12 +5,15 @@ import Login from "./component/auth/Login";
 import Register from "./component/auth/Register";
 import Logout from "./component/auth/Logout";
 import Home from "./component/home/Home";
+import ProductList from "./component/product/ProductList";
 
 function App() {
   return (
     <div className="App">
       <Routes>
           <Route path="/" element={<Home/>} /> 
+          <Route path="/products" element={<ProductList/>} />
+          <Route path="/products/:type" element={<ProductList/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/logout" element={<Logout/>} />
