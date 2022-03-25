@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 
 const AuthContext = React.createContext();
 
@@ -15,6 +14,7 @@ function AuthProvider({children}) {
         const token = localStorage.getItem("token");
         if(token) {
             setToken(token);
+            setAuth(true);
         }
     }, []);
 

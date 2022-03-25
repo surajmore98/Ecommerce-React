@@ -1,14 +1,35 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../provider/AuthProvider';
 import '../style/Navbar.css';
+import { useProduct } from '../provider/ProductProvider';
+import { getCartItems } from './api/CartManager';
+import { getWishlistItems } from './api/WishListManager';
+import { useEffect } from 'react';
 
 function Navbar() {
     const navigate  = useNavigate();
+    const {wishList, cart, setCart, setWishList} = useProduct();
     const {isAuth} = useAuth();
 
-    const cartProductCount = 0;
-    const wishListProductCount = 0;
+    const cartProductCount = cart ? cart.length : 0;
+    const wishListProductCount = wishList ? wishList.length : 0;
     const authButtonText = !isAuth ? "Login" : "Logout";
+
+    // load cart data on authentication
+    useEffect(() => {
+        isAuth && (async () => {
+          const response = await getCartItems(token);
+          setCart(response.data.cart);
+        })(); 
+      }, [isAuth]);
+  
+      // load wishlist data on authentication
+      useEffect(() => {
+        isAuth && (async () => {
+          const response = await getWishlistItems(token);
+          setWishList(response.data.wishList);
+        })(); 
+      }, [isAuth]);
 
     function clickHandler(type) {
         if(type) {

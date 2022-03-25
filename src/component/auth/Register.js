@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import { register } from '../api/AuthManager';
 import { useAuth } from '../../provider/AuthProvider';
 import Navbar from '../Navbar';
+import { useEffect } from 'react';
 
 function Register() {
     const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();

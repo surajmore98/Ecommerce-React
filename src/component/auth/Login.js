@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../api/AuthManager';
 import { useAuth } from '../../provider/AuthProvider';
 import Navbar from '../Navbar';
+import { useEffect } from 'react';
 
 function Login() {
     const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();
     const { email, password } = credential;
     const [isRemeberMe, setRemeberMe] = useState();
+    const navigate = useNavigate();
 
     //to reset error value for new login.
     useEffect(() => {
@@ -31,12 +33,12 @@ function Login() {
             try {
                 const response = await login(credential);
                 if(response.status === 200) {
-                    setAuth(true);
                     setToken(response.data.encodedToken);
                     if(isRemeberMe) {
                         localStorage.setItem("token", response.data.encodedToken);
                     }
                     setAuth(true);
+                    navigate("/");
                 }
             } catch(e) {
                 console.error(e);
@@ -76,7 +78,7 @@ function Login() {
                             </div>
                         </div>
                         <button className="btn product-btn bg-info white p-md" type="submit">Login</button> 
-                        <Link to="/login" className="btn product-btn bg-charcoal-white charcoal-black p-md">Create New Account </Link> 
+                        <Link to="/register" className="btn product-btn bg-charcoal-white charcoal-black p-md">Create New Account </Link> 
                     </form>
                     <div className='error'>
                         {error && "The credentials you entered are invalid!!"}
