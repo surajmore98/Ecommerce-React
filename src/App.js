@@ -17,11 +17,11 @@ function App() {
         <Route path="/products" element={<ProductList/>} /> 
         <Route path="/products/:type" element={<ProductList/>} />
         <Route path="/mock" element={<Mock/>} /> 
-        !isAuth && <Route path="/login" element={<Login/>} />
-        !isAuth && <Route path="/register" element={<Register/>} />
-        isAuth && <Route path="/logout" element={<Logout/>} />
-        isAuth &&<Route path="/wishlist" element={<WishList/>} /> 
-        isAuth &&<Route path="/cart" element={<Cart/>} />
+        { !isAuth && <Route path="/login" element={<Login/>} /> }
+        { !isAuth && <Route path="/register" element={<Register/>} /> }
+        { isAuth && <Route path="/logout" element={<Logout/>} /> }
+        { isAuth &&<Route path="/wishlist" element={<WishList/>} />  }
+        { isAuth &&<Route path="/cart" element={<Cart/>} /> }
       </Routes>
     </div>
   );

@@ -28,7 +28,6 @@ function Cart() {
                     <div className="cart-content">
                         {
                             cart && cart.map((item, index) => {
-                                console.log(item, "item", index);
                                 return (
                                     <CartItem product={item} key={index}/>
                                 )
