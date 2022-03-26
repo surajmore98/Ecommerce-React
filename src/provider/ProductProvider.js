@@ -1,6 +1,5 @@
 import { filterByGender, sortByPrice, filterByBrand, filterByRating, clearFilter } from '../constant';
-import { useContext, useState, useReducer, useEffect } from "react";
-import React from 'react';
+import React, { useContext, useState, useReducer, useEffect } from 'react';
 
 const ProductContext = React.createContext();
 

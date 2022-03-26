@@ -1,12 +1,61 @@
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../provider/AuthProvider";
+import { useProduct } from "../../provider/ProductProvider";
+import {addItemToWishlist} from '../api/WishListManager';
+import {addItemToCart, updateCartItem} from '../api/CartManager';
+
 function Product({product}) {
     const {_id:id, title, price, discountedPrice, discount, image, brand} = product;
+    const { setCart, setWishList, cart} = useProduct();
+    const navigate  = useNavigate();
+    const { isAuth, token } = useAuth();
+    
+    function checkAuth() {
+        if(!isAuth) {
+            navigate("/login");
+            return false;
+        }
+        return true;
+    }
     
     async function addToCart() {
-        // will be added in cart-managment functionality
+        try {
+            if(checkAuth()) {
+                if(cart && cart.length) {
+                    const item = cart.find(c => c._id === id);
+                    if(item) {
+                        const req = { "id": id, "action" : "increment"};
+                        const response = await updateCartItem(req, token);
+                        if(response.status === 200) {
+                            console.log(response.data.cart);
+                            setCart(response.data.cart);
+                            return;
+                        }
+                    }
+                }
+    
+                const response = await addItemToCart(product, token);
+                if(response.status === 201) {
+                    console.log(response.data.cart);
+                    setCart(response.data.cart);
+                }
+            }
+        } catch(e) {
+            console.error(e);
+        }
     }
 
     async function addToWishList() {
-        // will be added in wishlist-managment functionality
+        try {
+            if(checkAuth()) {
+                const response = await addItemToWishlist(product, token);
+                if(response.status === 201) {
+                    setWishList(response.data.wishlist);
+                }
+            }
+        } catch(e) {
+            console.error(e);
+        }
     }
 
     return (
