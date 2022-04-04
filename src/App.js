@@ -8,20 +8,52 @@ import Home from "./component/home/Home";
 import ProductList from "./component/product/ProductList";
 import WishList from "./component/wishlist/WishList";
 import Cart from "./component/cart/Cart";
+import NotFound from "./component/NotFound";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home/>} /> 
-        <Route path="/products" element={<ProductList/>} /> 
-        <Route path="/products/:type" element={<ProductList/>} />
-        <Route path="/mock" element={<Mock/>} /> 
-        { !isAuth && <Route path="/login" element={<Login/>} /> }
-        { !isAuth && <Route path="/register" element={<Register/>} /> }
-        { isAuth && <Route path="/logout" element={<Logout/>} /> }
-        { isAuth &&<Route path="/wishlist" element={<WishList/>} />  }
-        { isAuth &&<Route path="/cart" element={<Cart/>} /> }
+        <Route 
+          path="/" 
+          element={<Home/>}
+        /> 
+        <Route 
+          path="/products" 
+          element={<ProductList/>} 
+        /> 
+        <Route 
+          path="/products/:type"
+          element={<ProductList/>} 
+        />
+        <Route 
+          path="/mock" 
+          element={<Mock/>} 
+        /> 
+        <Route 
+          path="/login" 
+          element={<Login/>} 
+        />
+        <Route 
+          path="/register" 
+          element={<Register/>} 
+        />
+        <Route 
+          path="/logout"
+          element={<Logout/>}
+         />
+        <Route 
+          path="/wishlist"
+          element={<WishList/>}
+        /> 
+        <Route
+          path="/cart"
+          element = {<Cart/>} 
+        />
+        <Route 
+          path="*" 
+          element = {<NotFound/>}
+        />
       </Routes>
     </div>
   );

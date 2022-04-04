@@ -3,7 +3,6 @@ import { useAuth } from "../../provider/AuthProvider";
 
 async function getCartItems(token) {
     try {
-        console.log(token);
         return await axios.get('/api/user/cart', {
             headers: {
                 authorization: token

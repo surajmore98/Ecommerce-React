@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { register } from '../api/AuthManager';
 import { useAuth } from '../../provider/AuthProvider';
 import Navbar from '../Navbar';
@@ -7,10 +7,11 @@ import { useEffect } from 'react';
 function Register() {
     const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();
     const { email, password, firstName, lastName } = credential;
+    const navigate = useNavigate();
 
     //to reset error value for new register.
     useEffect(() => {
-        setError(false);
+        setError("");
     }, [credential])
 
     function inputChangeHandler(e, type) {
@@ -28,11 +29,11 @@ function Register() {
                 if(response.status === 201) {
                     setToken(response.data.encodedToken);
                     setAuth(true);
-                    setCredential({...credential, email: value});
+                    navigate("/");
                 }
             } catch(e) {
                 console.error(e);
-                setError(true);
+                setError(e.response.data.errors[0] ?? "error while registering.");
             }
         }
     }
@@ -82,7 +83,7 @@ function Register() {
                         <Link className="btn product-btn bg-charcoal-white charcoal-black p-md" to="/login">Already have an Account </Link> 
                     </form>
                     <div className='error'>
-                        {error && `Error while registering ${firstName} ${lastName}!!`}
+                        {error}
                     </div>
                 </div>
             </div>   

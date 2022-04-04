@@ -3,17 +3,19 @@ import { useProduct } from "../../provider/ProductProvider";
 import Navbar from "../Navbar";
 import { useAuth } from "../../provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { getWishlistItems } from "../api/WishListManager";
 import { useEffect } from "react";
+import NoItems from "../NoItems";
 
 function WishList() {
-    const { wishList, setWishList } = useProduct();
-    const { isAuth, token } = useAuth();
+    const { wishList } = useProduct();
+    const { isAuth, localStorageToken } = useAuth();
     const navigate = useNavigate();
+
+    const IsWishListEmpty = wishList.length ? false : true;
 
     //check authorization on route-navigation
     useEffect(() => {
-        !isAuth && navigate("/login");
+        (!isAuth && !localStorageToken) && navigate("/login");
     },[]);
 
     return (
@@ -30,6 +32,9 @@ function WishList() {
                         }
                     </div>    
                 </div>
+                {
+                    IsWishListEmpty && <NoItems/>
+                }
             </div>
         </div>
     );

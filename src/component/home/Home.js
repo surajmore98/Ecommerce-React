@@ -8,8 +8,8 @@ function Home() {
         <div>
             <Navbar/>
             <div className="main-content layout-grid">
-                <CategoryList/>
                 <Banner/>
+                <CategoryList/>
                 <CollectionList/>
             </div>
         </div>

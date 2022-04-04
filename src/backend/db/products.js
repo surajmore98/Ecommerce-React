@@ -13,7 +13,7 @@ import { v4 as uuid } from "uuid";
     brand: "Reebok",
     price: 9999.00,
     discount: "20%",
-    gender: "Men",
+    gender: "Women",
     discountedPrice: 7999.00,
     categoryName: "Running",
     rating: 4
@@ -49,7 +49,7 @@ import { v4 as uuid } from "uuid";
     brand: "Reebok",
     price: 3299.00,
     discount: "60%",
-    gender: "Men",
+    gender: "Women",
     discountedPrice: 1320.00,
     categoryName: "Running",
     rating: 4
@@ -160,7 +160,7 @@ import { v4 as uuid } from "uuid";
     brand: "Puma",
     price: 6999.00,
     discount: "",
-    gender: "Men",
+    gender: "Women",
     discountedPrice: 6999.00,
     categoryName: "Running",
     rating: 4
@@ -319,7 +319,7 @@ import { v4 as uuid } from "uuid";
     brand: "Adidas",
     price: 4599.00,
     discount: "40%",
-    gender: "Men",
+    gender: "Women",
     discountedPrice: 2759.00,
     categoryName: "Sneaker",
     rating: 4
@@ -392,7 +392,7 @@ import { v4 as uuid } from "uuid";
     brand: "Nike",
     price: 10295.00,
     discount: "",
-    gender: "Men",
+    gender: "Women",
     discountedPrice: 10295.00,
     categoryName: "Sneaker",
     rating: 4
@@ -428,7 +428,7 @@ import { v4 as uuid } from "uuid";
     brand: "Nike",
     price: 10995.00,
     discount: "",
-    gender: "Men",
+    gender: "Women",
     discountedPrice: 10995.00,
     categoryName: "Sneaker",
     rating: 4
