@@ -14,7 +14,7 @@ function WishListItem({product}) {
             try {
                 const response = await removeItemFromWishlist(id,token);
                 if(response.status === 200) {
-                    setWishList(response.data.wishList);
+                    setWishList(response.data.wishlist);
                     const addToCartResponse = await addItemToCart(currentProduct, token);
                     if(addToCartResponse.status === 201) {
                         setCart(addToCartResponse.data.cart);
@@ -31,7 +31,7 @@ function WishListItem({product}) {
         if(currentProduct) {
             try {
                 const response = await removeItemFromWishlist(id, token);
-                setWishList(response.data.wishList);
+                setWishList(response.data.wishlist);
             } catch(e) {
                 console.error(e);
             }

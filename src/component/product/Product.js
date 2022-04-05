@@ -27,7 +27,6 @@ function Product({product}) {
                         const req = { "id": id, "action" : "increment"};
                         const response = await updateCartItem(req, token);
                         if(response.status === 200) {
-                            console.log(response.data.cart);
                             setCart(response.data.cart);
                             return;
                         }
@@ -36,8 +35,8 @@ function Product({product}) {
     
                 const response = await addItemToCart(product, token);
                 if(response.status === 201) {
-                    console.log(response.data.cart);
                     setCart(response.data.cart);
+                    navigate("/cart");
                 }
             }
         } catch(e) {
@@ -51,6 +50,7 @@ function Product({product}) {
                 const response = await addItemToWishlist(product, token);
                 if(response.status === 201) {
                     setWishList(response.data.wishlist);
+                    navigate("/wishlist");
                 }
             }
         } catch(e) {
@@ -68,7 +68,7 @@ function Product({product}) {
                     <div className="charcoal-black header m-sm">{title}</div>
                     <div className="m-md font-sm">
                         <span>{brand}</span>
-                        <span className="error">Discount: {discount}</span>
+                        <span className="error">{discount && `Discount: ${discount}`}</span>
                     </div>
                     <div className="charcoal-black sub-header">
                         <span className="m-sm">&#x20B9;{discountedPrice}</span>

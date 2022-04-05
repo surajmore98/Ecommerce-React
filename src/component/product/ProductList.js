@@ -3,7 +3,6 @@ import Product from './Product';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Filter from './Filter';
-
 import { getFilteredProducts } from '../../helper/FilterHelper';
 import { getProducts } from '../api/ProductManager';
 import Navbar from '../Navbar';
@@ -15,6 +14,7 @@ function ProductList() {
     
     let productList = intitalise(products, type);
     productList = getFilteredProducts(productList, price, brand, gender, rating);
+    const productCount = productList.length > 0 ? true : false;
 
     function intitalise(products, param) {
         if(param && products && products.length) {
@@ -46,8 +46,11 @@ function ProductList() {
                             <Product product={item} key={index}/>
                         )
                     })
-                }     
+                }
             </div>
+            {
+                    !productCount && <h1 className="no-items">No Products To Show!</h1>
+            }
         </div>
         </div>
     );

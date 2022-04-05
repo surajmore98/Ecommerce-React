@@ -44,7 +44,7 @@ function CartItem({product}) {
     }
 
     async function quantityChangeHandler(type) {
-        if(type) {
+        if(type && !(qty === 1 && type === "decrement")) {
             const request = {
                 "id" : id,
                 "action": type
@@ -78,7 +78,7 @@ function CartItem({product}) {
                         <div className="detail-text">Quantity: </div>
                         <div className="counter-input">
                             <button className="btn btn-round" onClick={() => quantityChangeHandler("decrement")}>-</button>
-                            <input type="text" value={qty}/>
+                            <input type="number" value={qty} />
                             <button className="btn btn-round" onClick={() => quantityChangeHandler("increment")}>+</button>
                         </div>
                     </div>

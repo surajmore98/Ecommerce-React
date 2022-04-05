@@ -1,7 +1,21 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAuth } from '../../provider/AuthProvider';
 
 function Logout() {
+    const { setAuth, setToken } = useAuth();
     const navigate = useNavigate();
+
+    //check authorization on route-navigation
+    useEffect(() => {
+        !isAuth && navigate("/login");
+    },[]);
+    
+    useEffect(()=> {
+        setAuth(false);
+        setToken("");
+        localStorage.removeItem("token");
+    },[]);
 
     function clickHandler() {
         navigate("/login");

@@ -58,9 +58,10 @@
 .counter-input input {
     font-weight: 700;
     border: none;
-    width: 1rem;
+    width: 2rem;
     text-align: center;
     vertical-align: middle;
+    pointer-events: none;
 }
 
 .counter-input .text {
