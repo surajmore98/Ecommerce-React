@@ -6,9 +6,17 @@ import {addItemToCart, updateCartItem} from '../api/CartManager';
 
 function Product({product}) {
     const {_id:id, title, price, discountedPrice, discount, image, brand} = product;
-    const { setCart, setWishList, cart} = useProduct();
+    const { setCart, setWishList, cart, wishList } = useProduct();
     const navigate  = useNavigate();
     const { isAuth, token } = useAuth();
+
+    const isPresentInCart = () => {
+        return cart && cart.length > 0 ? cart.some(x => x._id === id) : false;
+    }
+    
+    const isPresentInWishlist = () => {
+        return wishList && wishList.length > 0 ? wishList.some(x => x._id === id) : false;
+    }
     
     function checkAuth() {
         if(!isAuth) {
@@ -21,16 +29,8 @@ function Product({product}) {
     async function addToCart() {
         try {
             if(checkAuth()) {
-                if(cart && cart.length) {
-                    const item = cart.find(c => c._id === id);
-                    if(item) {
-                        const req = { "id": id, "action" : "increment"};
-                        const response = await updateCartItem(req, token);
-                        if(response.status === 200) {
-                            setCart(response.data.cart);
-                            return;
-                        }
-                    }
+                if(isPresentInCart()) {
+                    return;
                 }
     
                 const response = await addItemToCart(product, token);
@@ -47,6 +47,10 @@ function Product({product}) {
     async function addToWishList() {
         try {
             if(checkAuth()) {
+                if(isPresentInWishlist()) {
+                    return;
+                }
+
                 const response = await addItemToWishlist(product, token);
                 if(response.status === 201) {
                     setWishList(response.data.wishlist);
@@ -76,8 +80,8 @@ function Product({product}) {
                     </div>
                 </div>
                 <div>
-                    <button className="btn bg-info white product-btn" onClick={addToCart}>Add to Cart</button>
-                    <button className="btn bg-charcoal-gray white product-btn" onClick={addToWishList}>Save to WishList</button>
+                    <button className={`btn bg-info product-btn ${isPresentInCart() ? 'product-btn-disabled charcoal-black' : 'white'}`} onClick={addToCart}>Add to Cart</button>
+                    <button className={`btn bg-charcoal-gray product-btn ${isPresentInWishlist() ? 'product-btn-disabled charcoal-black' : 'white'}`} onClick={addToWishList}>Save to WishList</button>
                 </div>
             </div>
         </div>
