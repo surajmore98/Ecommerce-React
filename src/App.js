@@ -23,10 +23,6 @@ function App() {
           element={<ProductList/>} 
         /> 
         <Route 
-          path="/products/:type"
-          element={<ProductList/>} 
-        />
-        <Route 
           path="/mock" 
           element={<Mock/>} 
         /> 

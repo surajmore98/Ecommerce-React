@@ -4,6 +4,7 @@ import { login } from '../api/AuthManager';
 import { useAuth } from '../../provider/AuthProvider';
 import Navbar from '../Navbar';
 import { useEffect } from 'react';
+import { guestCredentials } from '../../constant';
 
 function Login() {
     const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();
@@ -27,6 +28,20 @@ function Login() {
         setRemeberMe((value) => !value);
     }
 
+    async function guestLogin(e) {
+        setCredential(guestCredentials);
+        try {
+            const response = await login({email: guestCredentials.email, password: guestCredentials.password});
+            if(response.status === 200) {
+                setToken(response.data.encodedToken);
+                setAuth(true);
+                navigate("/");
+            }
+        } catch(e) {
+            console.error(e);
+            setError(true);
+        }
+    }
     async function handleSubmit(e) {
         e.preventDefault();
         if(credential) {
@@ -45,6 +60,10 @@ function Login() {
                 setError(true);
             }
         }
+    }
+
+    function navigateToRegister() {
+        return navigate("/register");
     }
 
     return (
@@ -78,7 +97,8 @@ function Login() {
                             </div>
                         </div>
                         <button className="btn product-btn bg-info white p-md" type="submit">Login</button> 
-                        <Link to="/register" className="btn product-btn bg-charcoal-white charcoal-black p-md">Create New Account </Link> 
+                        <button className="btn product-btn bg-info white p-md" onClick={guestLogin}>Guest Login</button> 
+                        <button onClick={navigateToRegister} className="btn product-btn bg-charcoal-white charcoal-black p-md">Create New Account</button> 
                     </form>
                     <div className='error'>
                         {error && "The credentials you entered are invalid!!"}
