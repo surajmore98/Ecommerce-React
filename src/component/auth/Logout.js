@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAuth } from '../../provider/AuthProvider';
 
 function Logout() {
-    const { setAuth, setToken } = useAuth();
+    const { setAuth, setToken, isAuth } = useAuth();
     const navigate = useNavigate();
 
     //check authorization on route-navigation

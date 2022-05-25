@@ -7,9 +7,9 @@ const useProduct = () => useContext(ProductContext);
 
 function useFilter() {
     let initialfilter = {
-        price: null,
-        gender: undefined,
-        brand: undefined,
+        price: "",
+        gender: "",
+        brand: "",
         rating: 5
     };
 
@@ -25,7 +25,7 @@ function useFilter() {
             case filterByRating:
               return { ...filter, rating: action.payload };
             case clearFilter:
-                return { ...initialfilter }  
+              return { ...initialfilter };
             default:
               return filter;
           }

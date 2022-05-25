@@ -1,17 +1,41 @@
 import { highToLow, lowToHigh, reebok, puma, adidas, nike,filterByGender, women, men, sortByPrice, filterByBrand, filterByRating, clearFilter } from '../../constant';
 import {useProduct} from '../../provider/ProductProvider';
+import { useSearchParams } from 'react-router-dom';
 
 function Filter() {
     const { filter, dispatch } = useProduct();
     const { price, gender, brand, rating } = filter;
-    const isHighToLow = price === highToLow;
-    const isMen = gender === men;
-
-    function filterBy(type, payload) {
-        if (type) {
-            dispatch({ type: type, payload: payload });
+    const [searchParams, setSearchParams] = useSearchParams();
+    
+    function compareFilterVal(val, fltr) {
+        if(fltr && val) {
+            return fltr.toLocaleLowerCase() === val.toLocaleLowerCase();
         }
-        new Error(`type is not handled-${type}`);
+        return false;
+    }
+    
+    function filterBy(type, payload) {
+        const typeLowerCaseVal = type.toLocaleLowerCase();
+        if (type) {
+            if(compareFilterVal(filter[typeLowerCaseVal], payload)) {
+                dispatch({ type: type, payload: "" });
+
+                searchParams.delete(typeLowerCaseVal);
+                setSearchParams(searchParams);
+            } else {
+                dispatch({ type: type, payload: payload });
+
+                const params = new URLSearchParams();
+                searchParams.forEach((value, key) => {
+                    if(typeLowerCaseVal !== key) { 
+                        params.append(key, value);
+                    }
+                });
+
+                params.append(typeLowerCaseVal, payload.toLocaleLowerCase());
+                setSearchParams(params);
+            }
+        }
     }
 
     function sliderChangeHandler(e) {
@@ -21,6 +45,7 @@ function Filter() {
 
     function resetFilter() {
         dispatch({ type: clearFilter });
+        setSearchParams("");
     }
 
     return (
@@ -34,10 +59,10 @@ function Filter() {
                 <div>
                     <label className="filter-section-content-action">
                         <input
-                          type="radio"
+                          type="checkbox"
                           className="input-radio" 
                           onChange={() => filterBy(sortByPrice, highToLow)}
-                          checked={price && isHighToLow}
+                          checked={compareFilterVal(price, highToLow)}
                         />
                         <span className="action-item-text">Price - Low to High</span>
                     </label>
@@ -45,10 +70,10 @@ function Filter() {
                 <div>
                     <label className="filter-section-content-action">
                         <input
-                         type="radio" 
+                         type="checkbox" 
                          className="input-radio"
                          onChange={() => filterBy(sortByPrice, lowToHigh)}
-                         checked={price && !isHighToLow}
+                         checked={compareFilterVal(price, lowToHigh)}
                         />
                         <span className="action-item-text">Price - High to Low</span>
                     </label>
@@ -62,7 +87,7 @@ function Filter() {
                         <input
                             type="checkbox" 
                             onChange={() => filterBy(filterByGender, men)}
-                            checked={gender && isMen}
+                            checked={compareFilterVal(gender, men)}
                         />
                         <span className="action-item-text">Men</span>
                     </label>
@@ -72,7 +97,7 @@ function Filter() {
                         <input
                             type="checkbox" 
                             onChange={() => filterBy(filterByGender, women)}
-                            checked={gender && !isMen}
+                            checked={compareFilterVal(gender, women)}
                         />
                         <span className="action-item-text">Women</span>
                     </label>
@@ -86,7 +111,7 @@ function Filter() {
                         <input
                             type="checkbox" 
                             onChange={() => filterBy(filterByBrand, adidas)}
-                            checked={brand && brand === adidas}
+                            checked={brand && compareFilterVal(brand, adidas)}
                         />
                         <span className="action-item-text">Adidas</span>
                     </label>
@@ -96,7 +121,7 @@ function Filter() {
                         <input
                             type="checkbox" 
                             onChange={() => filterBy(filterByBrand, nike)}
-                            checked={brand && brand === nike}
+                            checked={brand && compareFilterVal(brand, nike)}
                         />
                         <span className="action-item-text">Nike</span>
                     </label>
@@ -106,7 +131,7 @@ function Filter() {
                         <input
                             type="checkbox" 
                             onChange={() => filterBy(filterByBrand, puma)}
-                            checked={brand && brand === puma}
+                            checked={brand && compareFilterVal(brand, puma)}
                         />
                         <span className="action-item-text">Puma</span>
                     </label>
@@ -116,7 +141,7 @@ function Filter() {
                         <input
                             type="checkbox" 
                             onChange={() => filterBy(filterByBrand, reebok)}
-                            checked={brand && brand === reebok}
+                            checked={brand && compareFilterVal(brand, reebok)}
                         />
                         <span className="action-item-text">Reebok</span>
                     </label>
