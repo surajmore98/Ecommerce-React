@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { defaultCredentials } from '../constant';
 
 const AuthContext = React.createContext();
 
@@ -6,7 +7,7 @@ const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({children}) {
     const [isAuth, setAuth] = useState(false);
-    const [credential, setCredential] = useState({email: undefined, password: undefined, firstName: undefined, lastName: undefined});
+    const [credential, setCredential] = useState(defaultCredentials);
     const [error, setError] = useState("");
     const [token, setToken] = useState("");
     const localStorageToken = localStorage.getItem("token");

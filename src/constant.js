@@ -16,3 +16,4 @@ export const filterByRating = "RATING";
 export const clearFilter = "CLEAR_FILTER";
 
 export const guestCredentials = {email: "johndoe@gmail.com", password: "johnDoe123", firstName: "John", lastName: "Doe"};
+export const defaultCredentials = {email: "", password: "", firstName: "", lastName: ""};

@@ -4,13 +4,17 @@ import { login } from '../api/AuthManager';
 import { useAuth } from '../../provider/AuthProvider';
 import Navbar from '../Navbar';
 import { useEffect } from 'react';
-import { guestCredentials } from '../../constant';
+import { defaultCredentials, guestCredentials } from '../../constant';
 
 function Login() {
     const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();
     const { email, password } = credential;
     const [isRemeberMe, setRemeberMe] = useState();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setCredential(defaultCredentials);
+    }, [])
 
     //to reset error value for new login.
     useEffect(() => {
