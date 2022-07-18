@@ -235,6 +235,12 @@ input::-webkit-inner-spin-button {
     cursor: no-drop;
 }
 
+.no-items {
+    width: calc(100% - 60vw);
+    text-align: center;
+    margin-top: 5rem;
+}
+
 @media only screen and (max-width: 700px) {
     html {
         font-size: 12px;
