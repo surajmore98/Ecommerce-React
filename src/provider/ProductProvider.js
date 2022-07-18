@@ -1,5 +1,6 @@
 import { filterByGender, sortByPrice, filterByBrand, filterByRating, clearFilter } from '../constant';
 import React, { useContext, useState, useReducer, useEffect } from 'react';
+import { getProducts } from '../component/api/ProductManager';
 
 const ProductContext = React.createContext();
 
@@ -38,10 +39,15 @@ function ProductProvider({children}) {
     const [wishList, setWishList] = useState([]);
     const [cart, setCart] = useState([]);
     const [products, setProducts] = useState([]);
-    const [filter, dispatch] = useFilter();
+    const [state, dispatch] = useFilter();
+
+    async function getproductsData() {
+      const data = await getProducts();
+      setProducts(data.data.products);
+    }
 
     return(
-        <ProductContext.Provider value={{cart, wishList, products, setWishList, setCart, setProducts, filter, dispatch}}>
+        <ProductContext.Provider value={{cart, wishList, products, state, setWishList, setCart, setProducts, dispatch, getproductsData}}>
             {children}
         </ProductContext.Provider>
     );

@@ -39,7 +39,7 @@ function WishListItem({product}) {
     }
 
     return (
-        <div className="wishlist-card bg-white  m-lg">   
+        <div className="wishlist-card bg-white  m-lg p-md">   
             <div className="wishlist-card-media">
                 <img src={image} alt={title} className="image" />
             </div>
@@ -51,8 +51,13 @@ function WishListItem({product}) {
             </div>
             <div>
                 <button className="btn product-btn bg-info white" onClick={moveToCart}>Move to Cart</button>
-                <button className="btn product-btn bg-charcoal-gray white" onClick={removeFromWishList}>Remove From WishList</button>
+                {/* <button className="btn product-btn bg-charcoal-gray white" onClick={removeFromWishList}>Remove From WishList</button> */}
             </div>
+            <button className="wishlist" onClick={removeFromWishList}>
+                <i className="material-icons info">
+                    favorite
+                </i>
+            </button>
         </div>
     )
 }

@@ -7,6 +7,10 @@
 
 .nav-menu {
     top: 3.5rem;
+    position: fixed;
+    min-height: calc(100vh - 3.5rem);
+    width: 25%;
+    margin-left: auto;
 }
 
 .nav-search-bar {
@@ -33,22 +37,14 @@
     padding-top: 0.375rem;
 }
 
-.nav-action:last-child {
-    display: none;
-}
-
-
 .logo img {
     width: 5.5rem;
     height: 2rem;
 }
 
-@media only screen and (max-width: 700px) {
-    .nav-action {
-        display: none;
-    }
-
-    .nav-action:last-child {
-        display: block;
-    }
+.nav-menu-link .item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
+

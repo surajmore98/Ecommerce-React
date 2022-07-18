@@ -9,14 +9,9 @@ import logo  from '../icon.jpg';
 
 function Navbar() {
     const navigate  = useNavigate();
-    const { wishList, cart, setCart, setWishList } = useProduct();
-    const { isAuth, token } = useAuth();
+    const { setCart, setWishList } = useProduct();
+    const { isAuth, token, user } = useAuth();
     const [isMenu, setMenu] = useState(false);
-
-    const cartProductCount = cart ? cart.length : 0;
-    const wishListProductCount = wishList ? wishList.length : 0;
-    const authButtonText = !isAuth ? "Login" : "Logout";
-
     // load cart data on authentication
     useEffect(() => {
         isAuth && (async () => {
@@ -64,32 +59,59 @@ function Navbar() {
                     <img src={logo} className="image" alt="CHARCOAL-E"/>
                 </Link>
                 <div className="nav-action ml-auto">
-                    <button className="btn white bg-charcoal-gray" onClick={() =>clickHandler("login")}>{authButtonText}</button>
-                    <button className="btn btn-round bg-white badge-wrapper" onClick={() => clickHandler("wishlist")}>
-                        <i className="material-icons">
-                            favorite_border
-                        </i>
-                        <div className="badge badge-round badge-md top right bg-error white">{wishListProductCount}</div>
-                    </button>
-                    <button className="btn btn-round bg-white badge-wrapper" onClick={() => clickHandler("cart")}>
-                        <i className="material-icons">
-                            shopping_cart
-                        </i>
-                        <div className="badge badge-round badge-md top right bg-error white">{cartProductCount}</div>
-                    </button>
-                </div>
-                <div className="nav-action">
-                    <button className="btn btn-round bg-white badge-wrapper" id="menu-btn" onClick={menuClickHandler}>
-                        <i className="material-icons">
-                            menu
-                        </i>
-                    </button>
+                    {
+                        !isAuth ? 
+                            <button className="btn white bg-charcoal-gray" onClick={() =>clickHandler("login")}>Login</button>
+                        : 
+                            <button className="btn btn-round bg-white badge-wrapper" id="menu-btn" onClick={menuClickHandler}>
+                                <i className="material-icons">
+                                    account_circle
+                                </i>
+                            </button>
+                    }
                 </div>
             </nav>
-            <ul className={ isMenu ? 'nav-menu nav-menu-show bg-white' :'nav-menu bg-white' }>
-                <li onClick={() => clickHandler("login")}><a className="nav-menu-link bg-white charcoal-black">{authButtonText}</a></li>
-                <li onClick={() => clickHandler("cart")}><a className="nav-menu-link bg-white charcoal-black">Cart</a></li>
-                <li onClick={() => clickHandler("wishlist")}><a className="nav-menu-link bg-white charcoal-black">Wishlist</a></li>
+            <ul className={ isMenu ? 'nav-menu nav-menu-show bg-white' : 'nav-menu bg-white' }>
+                <li>
+                    <span className="nav-menu-link bg-white charcoal-black">
+                        <div className="item">
+                            <i className="material-icons">
+                                person
+                            </i>
+                            <span>{`${user?.firstName} ${user?.lastName}`}</span>
+                        </div>
+                    </span>
+                </li>
+                <li onClick={() => clickHandler("cart")}>
+                    <a className="nav-menu-link bg-white charcoal-black">
+                        <div className="item">
+                            <i className="material-icons">
+                                shopping_cart
+                            </i>
+                            <span>Cart</span>
+                        </div>
+                    </a>
+                </li>
+                <li onClick={() => clickHandler("wishlist")}>
+                    <a className="nav-menu-link bg-white charcoal-black">
+                        <div className="item">
+                            <i className="material-icons">
+                                favorite
+                            </i>
+                            <span>Wishlist</span>
+                        </div>
+                    </a>
+                </li>
+                <li onClick={() => clickHandler("login")}>
+                    <a className="nav-menu-link bg-white charcoal-black">
+                        <div className="item">
+                            <i className="material-icons">
+                                logout
+                            </i>
+                            <span>{authButtonText}</span>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </div>
     );

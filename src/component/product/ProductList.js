@@ -1,26 +1,20 @@
 import { useProduct } from '../../provider/ProductProvider';
-import Product from './Product';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Filter from './Filter';
 import { getFilteredProducts } from '../../helper/FilterHelper';
-import { getProducts } from '../api/ProductManager';
 import Navbar from '../Navbar';
 import { clearFilter } from '../../constant';
+import ProductListItem from './ProductListItem';
 
 function ProductList() {
-    const { products, setProducts, filter, dispatch } = useProduct();
+    const { products, state, dispatch, getproductsData } = useProduct();
     const [searchParams] = useSearchParams();
-    const { price, gender, brand, rating } = filter;
+    const { price, gender, brand, rating } = state;
     const queryParams = [];
 
     for (const entry of searchParams.entries()) {
         queryParams.push(entry);
-    }
-    
-    async function getproductsData() {
-        const data = await getProducts();
-        setProducts(data.data.products);
     }
 
     useEffect(() => {
@@ -39,23 +33,23 @@ function ProductList() {
     const productCount = productList.length > 0 ? true : false;
 
     return (
-        <div >
+        <div>
             <Navbar/>
             <div className="container">
-            <Filter/> 
-            <div className="main-content product-grid">
-                { 
-                    productList && productList.map((item, index) => {
-                        return(
-                            <Product product={item} key={index}/>
-                        )
-                    })
+                <Filter/> 
+                <div className="main-content product-grid">
+                    { 
+                        productList && productList.map((item, index) => {
+                            return(
+                                <ProductListItem product={item} key={index}/>
+                            )
+                        })
+                    }
+                </div>
+                {
+                    !productCount && <h1 className="no-items">No Products To Show!</h1>
                 }
             </div>
-            {
-                    !productCount && <h1 className="no-items">No Products To Show!</h1>
-            }
-        </div>
         </div>
     );
 };

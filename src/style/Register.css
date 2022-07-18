@@ -37,10 +37,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-width: 15rem;
 }
 
 .register .form-field-horizontal {
     justify-content: space-between;
+}
+
+.register .form-field input {
+    border-radius: 0;
 }
 
 .link {

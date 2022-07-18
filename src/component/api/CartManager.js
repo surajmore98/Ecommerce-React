@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuth } from "../../provider/AuthProvider";
 
 async function getCartItems(token) {
     try {

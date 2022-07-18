@@ -15,6 +15,7 @@ body {
     background-color: var(--charcoal-white);
     display: grid;
     padding: 2rem 4rem;
+    margin-top: 3.5rem;
 }
 
 .layout-grid {
@@ -24,14 +25,13 @@ body {
 .product-grid {
     margin-left: calc(25vw + 2rem);
     grid-template-columns: repeat(2, 1fr);
-    padding: 3rem;
+    padding: 0 3rem;
 }
 
 .register-container {
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 5rem;
 }
 
 .product-category-list {
@@ -143,6 +143,20 @@ body {
     display: flex;
     flex-direction: column;
     border: 2px solid var(--charcoal-black-light);
+    padding: 0.25rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.wishlist-card .wishlist,
+.product-grid-item .wishlist {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+    background-color: var(--charcoal-black-light);
+    border-radius: 50%;
+    border: none;
     padding: 0.25rem;
 }
 
