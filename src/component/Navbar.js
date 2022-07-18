@@ -12,6 +12,7 @@ function Navbar() {
     const { setCart, setWishList } = useProduct();
     const { isAuth, token, user } = useAuth();
     const [isMenu, setMenu] = useState(false);
+    
     // load cart data on authentication
     useEffect(() => {
         isAuth && (async () => {
@@ -108,7 +109,7 @@ function Navbar() {
                             <i className="material-icons">
                                 logout
                             </i>
-                            <span>{authButtonText}</span>
+                            <span>Logout</span>
                         </div>
                     </a>
                 </li>
