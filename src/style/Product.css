@@ -1,0 +1,32 @@
+.product-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.product-image {
+    width: 60%;
+    max-height: 20rem;
+}
+
+.product-detail {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.product-detail-image {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.product-detail-image div {
+    height: 5rem;
+    width: 5rem;
+}
+.product-detail-image .image:hover,
+.product-image-active {
+    border: 1px solid var(--info);
+}

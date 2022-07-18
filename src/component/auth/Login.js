@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { defaultCredentials, guestCredentials } from '../../constant';
 
 function Login() {
-    const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();
+    const { credential, setCredential, error, setError, setAuth, setToken, user, setUser } = useAuth();
     const { email, password } = credential;
     const [isRemeberMe, setRemeberMe] = useState();
     const navigate = useNavigate();
@@ -53,8 +53,10 @@ function Login() {
                 const response = await login(credential);
                 if(response.status === 200) {
                     setToken(response.data.encodedToken);
+                    setUser(response.data.foundUser);
                     if(isRemeberMe) {
                         localStorage.setItem("token", response.data.encodedToken);
+                        localStorage.setItem("user", response.data.foundUser);
                     }
                     setAuth(true);
                     navigate("/");
@@ -92,21 +94,23 @@ function Login() {
                             </div>
                         </div>
                         <div className="form-field-section">
-                            <div className="form-field form-field-horizontal font-md">
-                                <label className="form-control-horizontal">
+                            <div className="form-field form-field-horizontal">
+                                <label className="form-control-horizontal font-md">
                                     <input type="checkbox" value={isRemeberMe} onClick={checkboxChangedHandler}/>
                                     <span className="input-label">Remember me</span>
                                 </label>
-                                <a className="link info p-sm">Forgot your Password?</a>
                             </div>
                         </div>
                         <button className="btn product-btn bg-info white p-md" type="submit">Login</button> 
                         <button className="btn product-btn bg-info white p-md" onClick={guestLogin}>Guest Login</button> 
                         <button onClick={navigateToRegister} className="btn product-btn bg-charcoal-white charcoal-black p-md">Create New Account</button> 
                     </form>
-                    <div className='error'>
-                        {error && "The credentials you entered are invalid!!"}
-                    </div>
+                    {
+                        error &&
+                        <div className="error">
+                            The credentials you entered are invalid!!
+                        </div>
+                    }
                 </div>
             </div>
         </div>

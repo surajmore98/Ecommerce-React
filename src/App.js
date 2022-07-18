@@ -9,6 +9,7 @@ import ProductList from "./component/product/ProductList";
 import WishList from "./component/wishlist/WishList";
 import Cart from "./component/cart/Cart";
 import NotFound from "./component/NotFound";
+import Product from "./component/product/Product";
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
         <Route
           path="/cart"
           element = {<Cart/>} 
+        />
+        <Route
+          path="/product/:id"
+          element = {<Product/>} 
         />
         <Route 
           path="*" 

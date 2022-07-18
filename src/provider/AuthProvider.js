@@ -10,7 +10,10 @@ function AuthProvider({children}) {
     const [credential, setCredential] = useState(defaultCredentials);
     const [error, setError] = useState("");
     const [token, setToken] = useState("");
+    const [user, setUser] = useState({ });
+
     const localStorageToken = localStorage.getItem("token");
+    const localStorageUser = localStorage.getItem("user");
 
     function setLocalToken() {
         if(localStorageToken) {
@@ -18,13 +21,22 @@ function AuthProvider({children}) {
             setAuth(true);
         }
     }
+
+    function setLocalUser() {
+        if(localStorageUser) {
+            setToken(JSON.parse(localStorageUser));
+            setAuth(true);
+        }
+    }
     
     useEffect(() => {
         setLocalToken();
+        setLocalUser();
     }, []);
 
     return(
-        <AuthContext.Provider value={{isAuth, credential, error, token, localStorageToken, setAuth, setCredential, setError, setToken}}>
+        <AuthContext.Provider value={{isAuth, credential, error, token, localStorageToken,
+            user, setUser, setAuth, setCredential, setError, setToken}}>
             {children}
         </AuthContext.Provider>
     );

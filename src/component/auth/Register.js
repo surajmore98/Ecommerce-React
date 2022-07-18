@@ -5,7 +5,7 @@ import Navbar from '../Navbar';
 import { useEffect } from 'react';
 
 function Register() {
-    const { credential, setCredential, error, setError, setAuth, setToken } = useAuth();
+    const { credential, setCredential, error, setError, setAuth, setToken, setUser } = useAuth();
     const { email, password, firstName, lastName } = credential;
     const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ function Register() {
                 if(response.status === 201) {
                     setToken(response.data.encodedToken);
                     setAuth(true);
+                    setUser(response.data.createdUser);
                     navigate("/");
                 }
             } catch(e) {
@@ -82,9 +83,11 @@ function Register() {
                         <button className="btn product-btn bg-info white p-md"  type="submit" >Create New Account</button> 
                         <Link className="btn product-btn bg-charcoal-white charcoal-black p-md" to="/login">Already have an Account </Link> 
                     </form>
-                    <div className='error'>
-                        {error}
-                    </div>
+                    { error &&
+                        <div className='error'>
+                            {error}
+                        </div>
+                    }
                 </div>
             </div>   
         </div>

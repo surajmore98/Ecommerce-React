@@ -3,8 +3,8 @@ import {useProduct} from '../../provider/ProductProvider';
 import { useSearchParams } from 'react-router-dom';
 
 function Filter() {
-    const { filter, dispatch } = useProduct();
-    const { price, gender, brand, rating } = filter;
+    const { state, dispatch } = useProduct();
+    const { price, gender, brand, rating } = state;
     const [searchParams, setSearchParams] = useSearchParams();
     
     function compareFilterVal(val, fltr) {
@@ -17,7 +17,7 @@ function Filter() {
     function filterBy(type, payload) {
         const typeLowerCaseVal = type.toLocaleLowerCase();
         if (type) {
-            if(compareFilterVal(filter[typeLowerCaseVal], payload)) {
+            if(compareFilterVal(state[typeLowerCaseVal], payload)) {
                 dispatch({ type: type, payload: "" });
 
                 searchParams.delete(typeLowerCaseVal);
