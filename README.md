@@ -18,7 +18,7 @@ This is e-commerce web app for shoes built using React, Javascript, HTML, CSS an
      - Users can add or remove items
      - Users can move items from wishlist to cart
 ### Demo:
-(https://user-images.githubusercontent.com/29055479/179816739-b24d121f-193e-4c83-8bec-3294d166b843.webm)
+[Demo](https://user-images.githubusercontent.com/29055479/179816739-b24d121f-193e-4c83-8bec-3294d166b843.webm)
 ### Local Environment Setup:
 
     **Getting Started with Create React App:**
