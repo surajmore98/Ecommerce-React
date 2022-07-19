@@ -61,8 +61,8 @@ function Filter() {
                         <input
                           type="checkbox"
                           className="input-radio" 
-                          onChange={() => filterBy(sortByPrice, highToLow)}
-                          checked={compareFilterVal(price, highToLow)}
+                          onChange={() => filterBy(sortByPrice, lowToHigh)}
+                          checked={compareFilterVal(price, lowToHigh)}
                         />
                         <span className="action-item-text">Price - Low to High</span>
                     </label>
@@ -72,8 +72,8 @@ function Filter() {
                         <input
                          type="checkbox" 
                          className="input-radio"
-                         onChange={() => filterBy(sortByPrice, lowToHigh)}
-                         checked={compareFilterVal(price, lowToHigh)}
+                         onChange={() => filterBy(sortByPrice, highToLow)}
+                         checked={compareFilterVal(price, highToLow)}
                         />
                         <span className="action-item-text">Price - High to Low</span>
                     </label>
