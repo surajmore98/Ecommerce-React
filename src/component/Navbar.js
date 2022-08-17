@@ -9,9 +9,12 @@ import logo  from '../icon.jpg';
 
 function Navbar() {
     const navigate  = useNavigate();
-    const { setCart, setWishList } = useProduct();
+    const { setCart, setWishList, cart, wishList } = useProduct();
     const { isAuth, token, user } = useAuth();
     const [isMenu, setMenu] = useState(false);
+    
+    const cartProductCount = cart ? cart.length : 0;
+    const wishListProductCount = wishList ? wishList.length : 0;
     
     // load cart data on authentication
     useEffect(() => {
@@ -75,7 +78,7 @@ function Navbar() {
             <ul className={ isMenu ? 'nav-menu nav-menu-show bg-white' : 'nav-menu bg-white' }>
                 <li>
                     <span className="nav-menu-link bg-white charcoal-black">
-                        <div className="item">
+                        <div className="item p-md" >
                             <i className="material-icons">
                                 person
                             </i>
@@ -86,9 +89,12 @@ function Navbar() {
                 <li onClick={() => clickHandler("cart")}>
                     <a className="nav-menu-link bg-white charcoal-black">
                         <div className="item">
-                            <i className="material-icons">
-                                shopping_cart
-                            </i>
+                            <div className="badge-wrapper">
+                                <i className="material-icons p-md">
+                                    shopping_cart
+                                </i>
+                               {cartProductCount > 0 && <span className="badge badge-round badge-md top left bg-error white">{cartProductCount}</span> }
+                            </div>
                             <span>Cart</span>
                         </div>
                     </a>
@@ -96,9 +102,12 @@ function Navbar() {
                 <li onClick={() => clickHandler("wishlist")}>
                     <a className="nav-menu-link bg-white charcoal-black">
                         <div className="item">
-                            <i className="material-icons">
-                                favorite
-                            </i>
+                            <div className="badge-wrapper p-md">
+                                <i className="material-icons">
+                                    favorite
+                                </i>
+                                { wishListProductCount > 0 && <span className="badge badge-round badge-md top left bg-error white">{wishListProductCount}</span>}
+                            </div>
                             <span>Wishlist</span>
                         </div>
                     </a>
@@ -106,9 +115,11 @@ function Navbar() {
                 <li onClick={() => clickHandler("login")}>
                     <a className="nav-menu-link bg-white charcoal-black">
                         <div className="item">
-                            <i className="material-icons">
-                                logout
-                            </i>
+                            <div className="badge-wrapper p-md">
+                                <i className="material-icons">
+                                    logout
+                                </i>
+                            </div>
                             <span>Logout</span>
                         </div>
                     </a>

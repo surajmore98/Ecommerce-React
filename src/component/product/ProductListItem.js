@@ -2,7 +2,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../provider/AuthProvider";
 import { useProduct } from "../../provider/ProductProvider";
 import {addItemToWishlist, removeItemFromWishlist} from '../api/WishListManager';
-import {addItemToCart, updateCartItem} from '../api/CartManager';
 
 function ProductListItem({product}) {
     const {_id:id, title, price, discountedPrice, discount, image, brand} = product;

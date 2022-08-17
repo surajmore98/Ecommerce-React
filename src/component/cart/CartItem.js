@@ -30,7 +30,7 @@ function CartItem({product}) {
         const currentProduct = cart.find(x => x._id === id);
         if(currentProduct) {
             try {
-                if(currentProduct.qty === 1) {
+                if(currentProduct.qty <= 1) {
                     const response = await removeItemFromCart(id, token);
                     setCart(response.data.cart);
                 } else {
@@ -43,21 +43,21 @@ function CartItem({product}) {
         }
     }
 
-    async function quantityChangeHandler(type) {
-        if(type && !(qty === 1 && type === "decrement")) {
-            const request = {
-                "id" : id,
-                "action": type
-            }
-            
-            try {
-                const response = await updateCartItem(request, token);
-                if(response) {
-                    setCart(response.data.cart);
-                }   
-            } catch(e) {
+    async function increaseQuantity() {
+        const response = await updateCartItem({ "id" : id, "action": "increment" }, token);
+        if(response) {
+            setCart(response.data.cart);
+        }
+    }
 
-            }
+    async function decreaseQuantity() {
+        if(qty <= 1) {
+            return;
+        }
+
+        const response = await updateCartItem({ "id" : id, "action": "decrement" }, token);
+        if(response) {
+            setCart(response.data.cart);
         }
     }
     
@@ -77,9 +77,9 @@ function CartItem({product}) {
                     <div className="charcoal-gray detail m-sm">
                         <div className="detail-text">Quantity: </div>
                         <div className="counter-input">
-                            <button className="btn btn-round" onClick={() => quantityChangeHandler("decrement")}>-</button>
+                            <button className="btn btn-round" onClick={decreaseQuantity} disabled={qty <= 1}>-</button>
                             <input type="number" value={qty} />
-                            <button className="btn btn-round" onClick={() => quantityChangeHandler("increment")}>+</button>
+                            <button className="btn btn-round" onClick={increaseQuantity}>+</button>
                         </div>
                     </div>
                 </div>
